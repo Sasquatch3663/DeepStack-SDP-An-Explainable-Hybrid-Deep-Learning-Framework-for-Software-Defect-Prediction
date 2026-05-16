@@ -1,0 +1,536 @@
+=========================================================
+DeepStack-SDP : Project Execution Order
+=========================================================
+
+Project:
+DeepStack-SDP
+(Deep Feature Stacked Ensemble Framework for Software Defect Prediction)
+
+=========================================================
+PHASE 0 : Setup
+=========================================================
+
+1. Clone Repository
+
+git clone <repository_url>
+
+2. Create Environment
+
+python -m venv venv
+
+3. Activate Environment
+
+Windows:
+venv\Scripts\activate
+
+Linux/macOS:
+source venv/bin/activate
+
+4. Install Dependencies
+
+pip install -r requirements.txt
+
+
+=========================================================
+PHASE 1 : Data Preparation Pipeline
+=========================================================
+
+Purpose:
+Load datasets and create processed datasets.
+
+Execution order:
+
+1.
+
+src/data/load_dataset.py
+
+↓
+
+2.
+
+src/preprocessing/label_standardizer.py
+
+↓
+
+3.
+
+src/data/dataset_merger.py
+
+↓
+
+4.
+
+src/data/data_cleaning.py
+
+↓
+
+5.
+
+src/preprocessing/missing_value_handler.py
+
+↓
+
+6.
+
+src/preprocessing/normalization.py
+
+↓
+
+7.
+
+src/preprocessing/data_scaling.py
+
+↓
+
+8.
+
+src/feature_engineering/feature_builder.py
+
+↓
+
+9.
+
+src/preprocessing/encoding.py
+
+↓
+
+10.
+
+src/feature_engineering/feature_selection.py
+
+↓
+
+11.
+
+src/feature_engineering/pca_reduction.py
+
+↓
+
+12.
+
+src/data/train_test_split.py
+
+
+Generated outputs:
+
+data/processed/
+
+standardized_dataset.pkl
+merged_dataset.pkl
+cleaned_dataset.pkl
+missing_handled.pkl
+normalized.pkl
+scaled.pkl
+featured.pkl
+encoded.pkl
+selected_features.pkl
+pca_data.pkl
+
+X_train.pkl
+X_test.pkl
+y_train.pkl
+y_test.pkl
+
+
+=========================================================
+PHASE 2 : Imbalance Handling
+=========================================================
+
+Purpose:
+Handle class imbalance.
+
+Execution order:
+
+1.
+
+src/imbalance_handling/smote_sampling.py
+
+↓
+
+2.
+
+src/imbalance_handling/adasyn_sampling.py
+
+↓
+
+3.
+
+src/imbalance_handling/class_weighting.py
+
+
+Generated outputs:
+
+SMOTE dataset
+
+ADASYN dataset
+
+Class weights
+
+
+=========================================================
+PHASE 3 : Baseline Model Training
+=========================================================
+
+Purpose:
+Train traditional ML models.
+
+Execution order:
+
+1.
+
+src/models/baseline_models/logistic_regression.py
+
+↓
+
+2.
+
+src/models/baseline_models/random_forest.py
+
+↓
+
+3.
+
+src/models/baseline_models/decision_tree.py
+
+↓
+
+4.
+
+src/models/baseline_models/svm.py
+
+↓
+
+5.
+
+src/models/baseline_models/xgboost_model.py
+
+↓
+
+6.
+
+src/models/baseline_models/model_runner.py
+
+
+=========================================================
+PHASE 4 : Deep Learning Models
+=========================================================
+
+Purpose:
+Train deep learning architectures.
+
+Execution order:
+
+1.
+
+src/models/deep_learning_models/cnn_model.py
+
+↓
+
+2.
+
+src/models/deep_learning_models/lstm_model.py
+
+↓
+
+3.
+
+src/models/deep_learning_models/neural_network_utils.py
+
+
+=========================================================
+PHASE 5 : DeepStack-SDP Hybrid Framework
+=========================================================
+
+Purpose:
+Train proposed hybrid architecture.
+
+Execution order:
+
+1.
+
+src/models/hybrid_model/dl_feature_extractor.py
+
+↓
+
+2.
+
+src/models/hybrid_model/feature_combiner.py
+
+↓
+
+3.
+
+src/models/hybrid_model/stacking_model.py
+
+↓
+
+4.
+
+src/models/hybrid_model/meta_model.py
+
+↓
+
+5.
+
+src/models/hybrid_model/ml_classifier.py
+
+↓
+
+6.
+
+src/models/hybrid_model/hybrid_architecture.py
+
+
+Hybrid pipeline:
+
+Input Data
+
+↓
+
+CNN Feature Extraction
+
+↓
+
+Feature Fusion
+
+(Original Features + Deep Features)
+
+↓
+
+Stacking Ensemble
+
+(Random Forest + XGBoost)
+
+↓
+
+Meta Model (XGBoost)
+
+↓
+
+Prediction
+
+
+=========================================================
+PHASE 6 : Run Experiments
+=========================================================
+
+Execution order:
+
+1.
+
+experiments/all_models_experiment.py
+
+↓
+
+2.
+
+experiments/dl_experiments.py
+
+↓
+
+3.
+
+experiments/hybrid_model_experiments.py
+
+↓
+
+4.
+
+experiments/tuning_experiments.py
+
+↓
+
+5.
+
+experiments/hybrid_tuning_experiments.py
+
+↓
+
+6.
+
+experiments/evaluation_experiments.py
+
+↓
+
+7.
+
+experiments/model_selection.py
+
+
+Generated outputs:
+
+results/
+
+model_results.csv
+dl_results.csv
+hybrid_results.csv
+hybrid_tuned.csv
+final_comparison.csv
+tuned_models.csv
+
+
+=========================================================
+PHASE 7 : Save Trained Models
+=========================================================
+
+Execution:
+
+python experiments/save_models.py
+
+
+Generated outputs:
+
+models/
+
+baseline_original.pkl
+baseline_smote.pkl
+baseline_adasyn.pkl
+baseline_class_weight.pkl
+
+hybrid_smote/
+
+cnn.h5
+meta.pkl
+stacking.pkl
+
+
+=========================================================
+PHASE 8 : Explainability Analysis
+=========================================================
+
+Execution order:
+
+1.
+
+src/explainability/shap_explainer.py
+
+↓
+
+2.
+
+src/explainability/lime_explainer.py
+
+↓
+
+3.
+
+src/explainability/feature_visualization.py
+
+↓
+
+4.
+
+src/explainability/explainability_pipeline.py
+
+
+Generated outputs:
+
+results/
+
+shap_summary.png
+shap_bar.png
+shap_waterfall.png
+lime_explanation.png
+feature_distribution.png
+feature_comparison.png
+
+
+=========================================================
+PHASE 9 : Notebook Analysis
+=========================================================
+
+Execution order:
+
+1.
+
+notebooks/01_data_analysis.ipynb
+
+↓
+
+2.
+
+notebooks/02_feature_engineering.ipynb
+
+↓
+
+3.
+
+notebooks/03_class_imbalance_analysis.ipynb
+
+↓
+
+4.
+
+notebooks/04_baseline_models.ipynb
+
+↓
+
+5.
+
+notebooks/05_dl_models.ipynb
+
+↓
+
+6.
+
+notebooks/06_hybrid_model_training.ipynb
+
+↓
+
+7.
+
+notebooks/07_explainable_ai_analysis.ipynb
+
+
+=========================================================
+PHASE 10 : Streamlit Deployment
+=========================================================
+
+Run:
+
+cd streamlit_app
+
+streamlit run app.py
+
+
+Available Dashboard Pages:
+
+1. Defect Prediction Dashboard
+
+2. Feature Importance Dashboard
+
+3. Model Explanation Dashboard
+
+4. Model Comparison Dashboard
+
+
+=========================================================
+FINAL EXECUTION (FULL PROJECT)
+=========================================================
+
+python src/pipeline/run_pipeline.py
+
+↓
+
+python experiments/all_models_experiment.py
+
+↓
+
+python experiments/hybrid_model_experiments.py
+
+↓
+
+python experiments/save_models.py
+
+↓
+
+python src/explainability/explainability_pipeline.py
+
+↓
+
+streamlit run streamlit_app/app.py
+
+
+=========================================================
+END OF EXECUTION ORDER
+=========================================================
