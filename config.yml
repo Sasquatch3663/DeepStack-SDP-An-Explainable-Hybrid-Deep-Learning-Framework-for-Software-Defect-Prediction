@@ -1,0 +1,137 @@
+# ===========================
+# GLOBAL SETTINGS
+# ===========================
+project:
+  name: software-defect-prediction
+  random_state: 42
+
+# ===========================
+# DATA PATHS
+# ===========================
+data:
+  raw: data/raw/
+  processed: data/processed/
+
+datasets:
+  nasa:
+    path: data/raw/nasa_promise/
+    files: ["cm1.csv", "jm1.csv", "kc1.csv", "kc2.csv", "pc1.csv"]
+
+  defect:
+    path: data/raw/defect_dataset/defect_dataset.csv
+
+# ===========================
+# PREPROCESSING
+# ===========================
+preprocessing:
+  missing_values:
+    strategy: mean   # mean | median | mode | drop
+
+  encoding:
+    enabled: true
+    method: label    # label | onehot
+
+  scaling:
+    enabled: true
+    method: standard # standard | minmax
+
+  normalization:
+    enabled: false
+
+  label:
+    target_column: defect
+    positive_class: 1
+    negative_class: 0
+
+# ===========================
+# FEATURE ENGINEERING
+# ===========================
+feature_engineering:
+  feature_selection:
+    method: rfe      # rfe | shap | none
+    n_features: 20
+
+  pca:
+    enabled: false
+    n_components: 10
+
+# ===========================
+# IMBALANCE HANDLING
+# ===========================
+imbalance:
+  method: smote      # smote | adasyn | class_weight | none
+
+# ===========================
+# MODEL CONFIG
+# ===========================
+models:
+  baseline:
+    logistic_regression:
+      C: 1.0
+      max_iter: 100
+
+    random_forest:
+      n_estimators: 100
+      max_depth: 10
+
+    svm:
+      kernel: rbf
+      C: 1.0
+
+    xgboost:
+      n_estimators: 100
+      learning_rate: 0.1
+
+  deep_learning:
+    cnn:
+      epochs: 10
+      batch_size: 32
+      learning_rate: 0.001
+
+    lstm:
+      epochs: 10
+      batch_size: 32
+
+# ===========================
+# HYBRID MODEL
+# ===========================
+hybrid:
+  use_dl_features: true
+
+  stacking:
+    base_models: ["random_forest", "xgboost"]
+    meta_model: xgboost
+
+# ===========================
+# TRAINING
+# ===========================
+training:
+  test_size: 0.2
+  cross_validation:
+    enabled: true
+    folds: 5
+
+  hyperparameter_tuning:
+    enabled: true
+    method: grid_search   # grid_search | random_search
+
+# ===========================
+# EVALUATION
+# ===========================
+evaluation:
+  metrics: ["accuracy", "precision", "recall", "f1", "roc_auc"]
+
+# ===========================
+# OUTPUT PATHS
+# ===========================
+output:
+  models: models/
+  results: results/
+  logs: reports/logs/
+  figures: reports/figures/
+
+# ===========================
+# STREAMLIT
+# ===========================
+streamlit:
+  model_path: models/best_model.pkl

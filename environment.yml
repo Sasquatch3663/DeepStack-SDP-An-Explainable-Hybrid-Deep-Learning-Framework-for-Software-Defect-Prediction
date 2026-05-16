@@ -1,0 +1,56 @@
+name: defect_prediction_env
+
+channels:
+
+* conda-forge
+* defaults
+
+dependencies:
+
+* python=3.10
+* pip
+
+# Core data libraries
+
+* numpy
+* pandas
+
+# Machine learning
+
+* scikit-learn
+* xgboost
+
+# Visualization
+
+* matplotlib
+* seaborn
+
+# Deep learning
+
+* pytorch
+* tensorflow
+
+# Utilities
+
+* tqdm
+
+* pyyaml
+
+* pip:
+
+  # Imbalanced dataset handling
+
+  * imbalanced-learn
+
+  # Explainable AI
+
+  * shap
+  * lime
+
+  # Streamlit UI
+
+  * streamlit
+
+  # Model saving/loading
+
+  * joblib
